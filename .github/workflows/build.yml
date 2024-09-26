@@ -1,0 +1,27 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "build"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: "build"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: "checkout sources"
+        uses: actions/checkout@v4
+
+      - name: "build"
+        run: php ./tools/build.php
+
+      - name: "publish to gh-pages"
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: .build
+          clean: true

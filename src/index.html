@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="description" content="A timestamp tag generator for Discord"/>
+	<meta name="keywords" content="discord, timestamp, generator, github, open-source"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover"/>
+	<title>Discord Timestamp Generator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<form id="settings">
+	<h1>Discord Timestamp Generator</h1>
+	<fieldset>
+		<legend>Datetime settings</legend>
+		<label for="date">
+			<span>Date</span><input id="date" name="date" class="options" type="date"/>
+		</label>
+		<br/>
+		<label for="time">
+			<span>Time</span><input id="time" name="time" class="options" type="time" step="1"/>
+		</label>
+		<br/>
+		<label for="timezone">
+			<span>Time Zone Offset</span><select id="timezone" class="options"></select>
+		</label>
+	</fieldset>
+	<fieldset>
+		<legend>Timestamp Tags</legend>
+		<div id="output"></div>
+		<div class="example" style="text-align: left">
+			The date/time displayed in the examples is formatted according to the browser's time zone and local settings.
+			<br>
+			Please note that the display in Discord depends on the language setting and may differ from the examples shown here!
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Info</legend>
+		<div>
+			This is a single-page application without external dependencies - you can <a href="./index.html">save it on your computer</a> for future use.
+			<br/>
+			The code is available <a href="https://github.com/codemasher/discord-timestamps" target="_blank">over here on GitHub</a>, where you can help to make it prettier.
+			<br/>
+			If you find this tool useful, feel free to <a href="https://twitter.com/codemasher" target="_blank">say hi</a> or
+			<a href="https://ko-fi.com/codemasher" target="_blank">tip me on ko-fi</a>.
+		</div>
+	</fieldset>
+	<fieldset>
+		<legend>Disclaimer</legend>
+		<div>
+			No data is stored, no cookies are set.<br/>Absolutely no guarantee, use at your own risk.
+		</div>
+	</fieldset>
+</form>
+<script src="script.js"></script>
+</body>
+</html>
