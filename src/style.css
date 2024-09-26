@@ -20,13 +20,20 @@ h1{
 	text-align: center;
 }
 
-input, textarea, select{
+input, textarea, select, button{
 	box-sizing: border-box;
-	font-family: Consolas, Courier, monospace;
 	font-size: 75%;
 	line-height: 1.25em;
 	border: 1px solid #888;
 	width: 50%;
+}
+
+input, textarea, select{
+	font-family: Consolas, Courier, monospace;
+}
+
+button{
+	cursor: pointer;
 }
 
 fieldset{
@@ -64,11 +71,24 @@ label > span{
 	color: #888;
 	text-align: right;
 	margin-bottom: 0.1em;
+	cursor: default;
 }
 
 .description{
 	margin-top: 1em;
 	font-size: smaller;
 	color: #888;
+}
 
+#output > label > input{
+	width: 35%;
+}
+
+#output > label > button{
+	width: calc(15% - 0.1em);
+	margin-left: 0.1em;
+}
+
+#output > label > button:hover{
+	background-color: #ddd;
 }

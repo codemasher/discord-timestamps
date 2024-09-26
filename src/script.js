@@ -148,11 +148,27 @@
 		input.className = 'timestamp';
 		input.addEventListener('click', ev => ev.target.select());
 
+		let copy = document.createElement('button');
+		copy.innerText = 'copy';
+
+		copy.addEventListener('click', async ev => {
+			ev.preventDefault();
+			ev.stopPropagation();
+
+			try{
+				await navigator.clipboard.writeText(input.value);
+			}
+			catch(e){
+				// noop
+			}
+		});
+
 		let example = document.createElement('div');
 		example.className = 'example';
 
 		label.appendChild(labeltext);
 		label.appendChild(input);
+		label.appendChild(copy);
 		label.appendChild(example);
 
 		handles[k] = {input: input, example: example};
