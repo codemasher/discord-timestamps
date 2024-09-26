@@ -13,24 +13,30 @@
 	<h1>Discord Timestamp Generator</h1>
 	<fieldset>
 		<legend>Datetime settings</legend>
-		<label for="date">
-			<span>Date</span><input id="date" name="date" class="options" type="date"/>
-		</label>
+		<div>
+			<label for="date">
+				<span>Date</span><input id="date" name="date" class="options" type="date"/>
+			</label>
+			<label for="time">
+				<span>Time</span><input id="time" name="time" class="options" type="time" step="1"/>
+			</label>
+			<label for="timezone">
+				<span>Time Zone Offset</span><select id="timezone" class="options"></select>
+			</label>
+		</div>
 		<br/>
-		<label for="time">
-			<span>Time</span><input id="time" name="time" class="options" type="time" step="1"/>
-		</label>
-		<br/>
-		<label for="timezone">
-			<span>Time Zone Offset</span><select id="timezone" class="options"></select>
-		</label>
+		<div class="description">
+			The time zone offset can be adjusted to do time zone math for time zones
+			<a href="https://twitter.com/GenshinImpact/status/1838790652349264238" target="_blank">other than the current one</a>.
+			You can refer to <a href="https://en.m.wikipedia.org/wiki/List_of_UTC_offsets" target="_blank">this wikipedia article</a> for a list of time zone offsets.
+		</div>
 	</fieldset>
 	<fieldset>
 		<legend>Timestamp Tags</legend>
 		<div id="output"></div>
-		<div class="example" style="text-align: left">
+		<br/>
+		<div class="description">
 			The date/time displayed in the examples is formatted according to the browser's time zone and local settings.
-			<br>
 			Please note that the display in Discord depends on the language setting and may differ from the examples shown here!
 		</div>
 	</fieldset>
@@ -38,7 +44,6 @@
 		<legend>Info</legend>
 		<div>
 			This is a single-page application without external dependencies - you can <a href="./index.html">save it on your computer</a> for future use.
-			<br/>
 			The code is available <a href="https://github.com/codemasher/discord-timestamps" target="_blank">over here on GitHub</a>, where you can help to make it prettier.
 			<br/>
 			If you find this tool useful, feel free to <a href="https://twitter.com/codemasher" target="_blank">say hi</a> or
