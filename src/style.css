@@ -88,8 +88,13 @@ label > span{
 	width: calc(15% - 0.1em);
 	margin-left: 0.1em;
 	vertical-align: middle;
+	transition: background-color 200ms linear;
 }
 
 #output > label > button:hover{
 	background-color: #ddd;
+}
+
+#output > label > button:active{
+	background-color: #bbb;
 }

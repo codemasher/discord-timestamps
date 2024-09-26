@@ -25,35 +25,6 @@
 
 	let handles = {};
 
-	function setTimezoneOptions(){
-		let tz = new Date().getTimezoneOffset() / -60;
-
-		for(let i = -12; i <= 14; i++){
-			let option = document.createElement('option');
-			option.value = i + '';
-
-			if(i === 0){
-				option.innerText = 'UTC';
-			}
-			else if(i > 0){
-				// "UTC+n"
-				option.innerText = 'UTC+' + i;
-			}
-			else{
-				// "UTC-n"
-				option.innerText = 'UTC' + i;
-			}
-
-			// select the current time zone and set it as default
-			if(i === tz){
-				option.defaultSelected  = true;
-				option.innerText       += ' (current)';
-			}
-
-			zoneInput.appendChild(option);
-		}
-	}
-
 	// https://stackoverflow.com/a/58252034
 	function setDefaultValue(){
 		let nowUTC = new Date();
@@ -129,51 +100,93 @@
 		}
 	}
 
+	function createTimezoneOptions(){
+		let tz = new Date().getTimezoneOffset() / -60;
+
+		for(let i = -12; i <= 14; i++){
+			let option = document.createElement('option');
+			option.value = i + '';
+
+			if(i === 0){
+				option.innerText = 'UTC';
+			}
+			else if(i > 0){
+				// "UTC+n"
+				option.innerText = 'UTC+' + i;
+			}
+			else{
+				// "UTC-n"
+				option.innerText = 'UTC' + i;
+			}
+
+			// select the current time zone and set it as default
+			if(i === tz){
+				option.defaultSelected  = true;
+				option.innerText       += ' (current)';
+			}
+
+			zoneInput.appendChild(option);
+		}
+	}
+
+	function colorFeedback(el, color){
+		el.style.backgroundColor = color;
+
+		setTimeout(() => el.style.backgroundColor = '', 1000);
+	}
+
+	function createOutputElements(){
+		let output = document.getElementById('output');
+
+		for(let k in formats){
+			let label = document.createElement('label');
+
+			let labeltext = document.createElement('span');
+			labeltext.innerText = formats[k].name;
+
+			let input = document.createElement('input');
+			input.type = 'text';
+			input.readOnly = true;
+			input.className = 'timestamp';
+			input.addEventListener('click', ev => ev.target.select());
+
+			let copy = document.createElement('button');
+			copy.innerText = 'copy';
+
+			copy.addEventListener('click', async ev => {
+				ev.preventDefault();
+				ev.stopPropagation();
+
+				try{
+					await navigator.clipboard.writeText(input.value);
+					colorFeedback(copy, '#00ff00aa');
+				}
+				catch(e){
+					colorFeedback(copy, '#ff0000aa');
+				}
+			});
+
+			let example = document.createElement('div');
+			example.className = 'example';
+
+			label.appendChild(labeltext);
+			label.appendChild(input);
+			label.appendChild(copy);
+			label.appendChild(example);
+
+			handles[k] = {input: input, example: example};
+
+			output.appendChild(label);
+		}
+	}
+
 	window.addEventListener('load', ev => {
-		setTimezoneOptions();
+		createTimezoneOptions();
+		createOutputElements();
+
+		document.getElementById('settings').addEventListener('change', ev => setTimestampTags(getDate()));
+
 		setDefaultValue();
 	});
-
-	document.getElementById('settings').addEventListener('change', ev => setTimestampTags(getDate()));
-
-	for(let k in formats){
-		let label = document.createElement('label');
-
-		let labeltext = document.createElement('span');
-		labeltext.innerText = formats[k].name;
-
-		let input = document.createElement('input');
-		input.type = 'text';
-		input.readOnly = true;
-		input.className = 'timestamp';
-		input.addEventListener('click', ev => ev.target.select());
-
-		let copy = document.createElement('button');
-		copy.innerText = 'copy';
-
-		copy.addEventListener('click', async ev => {
-			ev.preventDefault();
-			ev.stopPropagation();
-
-			try{
-				await navigator.clipboard.writeText(input.value);
-			}
-			catch(e){
-				// noop
-			}
-		});
-
-		let example = document.createElement('div');
-		example.className = 'example';
-
-		label.appendChild(labeltext);
-		label.appendChild(input);
-		label.appendChild(copy);
-		label.appendChild(example);
-
-		handles[k] = {input: input, example: example};
-
-		document.getElementById('output').appendChild(label);
-	}
 
 })();
